@@ -12,7 +12,7 @@ spec:
   project: default
   source:
     path: argo/helm-hello-app
-    repoURL: https://github.com/PovilasGT/inkodus-home-test
+    repoURL: https://github.com/PovilasGT/inkodus-home-assignment
     targetRevision: HEAD
   syncPolicy:
     syncOptions:

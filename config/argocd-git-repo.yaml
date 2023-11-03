@@ -6,6 +6,6 @@ metadata:
   labels:
     argocd.argoproj.io/secret-type: repository
 stringData:
-  url: https://github.com/PovilasGT/inkodus-home-test.git
+  url: https://github.com/PovilasGT/inkodus-home-assignment
   password: <GITHUB_TOKEN>
   username: git
