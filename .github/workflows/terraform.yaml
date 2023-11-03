@@ -1,0 +1,88 @@
+name: Terraform
+
+on:
+  pull_request:
+    types: [opened, closed]
+    branches:
+      - main
+    paths:
+      - 'terraform/**'
+  push:
+    branches:
+      - main
+    paths:
+      - 'terraform/**'
+defaults:
+  run:
+    working-directory: ./terraform
+
+jobs:
+  terraform-validate:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - uses: actions/checkout@v2
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+      - name: Terraform init
+        run: terraform init
+      - name: Terraform validate
+        run: terraform validate
+
+  terraform-plan:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    env:
+      TF_VAR_github_token: ${{ secrets.MY_GITHUB_TOKEN }}
+    needs: terraform-validate
+    steps:
+      - uses: actions/checkout@v2
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+      - name: Terraform init
+        run: terraform init
+      - name: Terraform plan
+        id: terraform-plan
+        run: terraform plan -var-file="secret.tfvars" -out=tfplan
+      - name: Comment on pull request
+        if: github.event_name == 'pull_request'
+        uses: unsplash/comment-on-pr@v1.3.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
+          PLAN: "terraform\n${{ steps.terraform-plan.outputs.stdout }}"
+        with:
+          msg: |
+            Terraform plan for this pull request:
+            ```
+            ${{ steps.terraform-plan.outputs.stdout }}
+            ```
+
+  terraform-apply:
+    runs-on: ubuntu-latest
+    env:
+      TF_VAR_github_token: ${{ secrets.MY_GITHUB_TOKEN }}
+    if: github.event.pull_request.merged
+    needs: terraform-plan
+    steps:
+      - uses: actions/checkout@v2
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+      - name: Terraform init
+        run: terraform init
+      - name: Terraform plan
+        id: terraform-plan
+        run: terraform plan -var-file="secret.tfvars" -out=tfplan
+      - name: Terraform apply
+        run: terraform apply -var-file="secret.tfvars" -auto-approve
