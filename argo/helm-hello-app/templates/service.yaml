@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: {{ .Values.service_name }}
+  namespace: {{ .Values.namespace_name }}
+  labels:
+    app: hello-app
+spec:
+  selector:
+    app: hello-app
+  ports:
+    - port: 5000
+      name: http
+  type: NodePort

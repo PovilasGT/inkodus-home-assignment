@@ -1,0 +1,15 @@
+# deployment
+
+registry_name: "078745329950.dkr.ecr.us-east-1.amazonaws.com"
+image_tag: "7fac910dd4aefeb0166048ebef49b9d867dc25c0"
+image_name: "hello-app"
+
+# all
+namespace_name: "dev"
+
+# service and route
+service_name: "hello-app-svc"
+
+service:
+  type: ClusterIP
+  port: 5000
