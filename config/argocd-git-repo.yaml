@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: argo-github-personal-token
+  namespace: argocd
+  labels:
+    argocd.argoproj.io/secret-type: repository
+stringData:
+  url: https://github.com/PovilasGT/inkodus-home-test.git
+  password: <GITHUB_TOKEN>
+  username: git
