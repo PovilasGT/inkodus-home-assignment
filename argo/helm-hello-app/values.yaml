@@ -5,6 +5,7 @@ container: "hello-app"
 
 labels: "hello-app"
 selector: "hello-app"
+replicas: 1
 
 namespace_name: "dev"
 
