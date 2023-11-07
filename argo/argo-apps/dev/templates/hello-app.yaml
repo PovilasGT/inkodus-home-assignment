@@ -12,8 +12,13 @@ spec:
   project: default
   source:
     path: argo/helm-hello-app
-    repoURL: https://github.com/PovilasGT/inkodus-home-assignment
+    helm:
+      valueFiles:
+        - values.yaml
+    repoURL: https://github.com/PovilasGT/inkodus-home-test
     targetRevision: HEAD
   syncPolicy:
+    automated: 
+       selfHeal: true
     syncOptions:
       - CreateNamespace=true

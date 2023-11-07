@@ -1,13 +1,13 @@
 registry_name: "078745329950.dkr.ecr.us-east-1.amazonaws.com"
-image_tag: "e195eef8f5e5ff198143ae56cb5df6ae9ccaa866"
+image_tag: "55cc490659ee515cd9ca70d444787e3ab07556be"
 image_name: "hello-app"
+container: "hello-app"
 
-# all
+labels: "hello-app"
+selector: "hello-app"
+
 namespace_name: "dev"
 
-# service and route
+# service
 service_name: "hello-app-svc"
-
-service:
-  type: ClusterIP
-  port: 5000
+service_type: "NodePort"
