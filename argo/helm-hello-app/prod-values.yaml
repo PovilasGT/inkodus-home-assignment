@@ -5,6 +5,7 @@ container: "hello-app-prod"
 
 labels: "hello-app-prod"
 selector: "hello-app-prod"
+replicas: 2
 
 namespace_name: "prod"
 
