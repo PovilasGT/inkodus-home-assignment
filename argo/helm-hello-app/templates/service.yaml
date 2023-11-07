@@ -4,11 +4,11 @@ metadata:
   name: {{ .Values.service_name }}
   namespace: {{ .Values.namespace_name }}
   labels:
-    app: hello-app
+    app: {{ .Values.labels }}
 spec:
   selector:
-    app: hello-app
+    app: {{ .Values.selector }}
   ports:
     - port: 5000
       name: http
-  type: NodePort
+  type: {{ .Values.service_type }}
