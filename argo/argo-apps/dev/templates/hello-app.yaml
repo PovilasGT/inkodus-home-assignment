@@ -15,7 +15,7 @@ spec:
     helm:
       valueFiles:
         - values.yaml
-    repoURL: https://github.com/PovilasGT/inkodus-home-test
+    repoURL: https://github.com/PovilasGT/inkodus-home-assignment
     targetRevision: HEAD
   syncPolicy:
     automated: 
