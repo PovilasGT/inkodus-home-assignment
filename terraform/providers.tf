@@ -29,9 +29,3 @@ provider "helm" {
 }
 
 provider "bcrypt" {}
-
-# provider "argocd" {
-#   username     = "admin"
-#   password     = "ln}VLY2)xQ[nkNYr"
-#   port_forward = true
-# }
