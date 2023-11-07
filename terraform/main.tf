@@ -71,19 +71,11 @@ module "eks_blueprints_addons" {
       repo_url           = "https://github.com/aws-samples/eks-blueprints-add-ons.git"
       add_on_application = true
     }
-    # workloads = {
-    #   path               = "envs/dev"
-    #   repo_url           = "https://github.com/aws-samples/eks-blueprints-workloads.git"
-    #   add_on_application = false
-    # }
   }
 
   # Add-ons
-  # enable_amazon_eks_aws_ebs_csi_driver = true
   enable_aws_load_balancer_controller   = true
   enable_cluster_autoscaler             = true
-  # enable_cert_manager                  = true
-  # enable_karpenter                     = true
 
 }
 
