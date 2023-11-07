@@ -1,5 +1,5 @@
 registry_name: "078745329950.dkr.ecr.us-east-1.amazonaws.com"
-image_tag: "55cc490659ee515cd9ca70d444787e3ab07556be"
+image_tag: "67c689574abcc9d30962c2011c511653351a0998"
 image_name: "hello-app"
 container: "hello-app"
 
